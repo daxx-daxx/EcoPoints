@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
-import { ScanComponent } from './pages/scan/scan';
+import { Login } from './pages/login/login';
+import { Register } from './pages/register/register';
 
 export const routes: Routes = [
-    { path: '', component: ScanComponent }
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: Login },
+  { path: 'register', component: Register },
 ];
