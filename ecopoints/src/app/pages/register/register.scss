@@ -74,6 +74,18 @@
   color: var(--color-input-icon);
 }
 
+.register-field-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  flex: 0 0 18px;
+}
+
+.register-field-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
 .register-field input {
   width: 100%;
   border: 0;
