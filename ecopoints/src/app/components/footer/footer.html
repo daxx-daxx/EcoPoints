@@ -1,0 +1,35 @@
+<footer class="footer-navigation" aria-label="Navegacion principal">
+  @for (navigationItem of footerNavigationItems; track navigationItem.route) {
+    <a
+      class="footer-navigation-link"
+      [routerLink]="navigationItem.route"
+      routerLinkActive="footer-navigation-link--active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <span class="footer-navigation-link__icon" aria-hidden="true">
+        @switch (navigationItem.iconName) {
+          @case ('scan') {
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M21 7.505a1.5 1.5 0 0 1-1.5 1.5h-3a1.5 1.5 0 0 1-1.5-1.5V4.5A1.5 1.5 0 0 1 16.5 3h3A1.5 1.5 0 0 1 21 4.5v3.005zM9 7.5V4.504a1.5 1.5 0 0 0-1.498-1.5l-3-.003A1.5 1.5 0 0 0 3 4.5V7.5A1.5 1.5 0 0 0 4.5 9h3A1.5 1.5 0 0 0 9 7.5zM5 7V5.001l2 .002V7H5zm-.502 8.004 3-.003A1.5 1.5 0 0 1 9 16.5V19.5A1.5 1.5 0 0 1 7.5 21h-3A1.5 1.5 0 0 1 3 19.5v-2.996a1.5 1.5 0 0 1 1.498-1.5zM7 19H5v-1.997l2-.002V19zM19 5v2.005h-2V5h2zm0 11a1 1 0 1 1 2 0v3.5a1.5 1.5 0 0 1-1.498 1.5l-3.5.005a1 1 0 1 1-.003-2L19 19V16zM11 4v7H4a1 1 0 1 0 0 2h8a1 1 0 0 0 1-1V4a1 1 0 1 0-2 0zm2 16a1 1 0 1 1-2 0v-4a1 1 0 1 1 2 0v4zm3-3a1 1 0 0 0 1-1v-3h3a1 1 0 1 0 0-2h-4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1z"
+              />
+            </svg>
+          }
+          @case ('rewards') {
+            <svg class="footer-navigation-link__icon-svg--small" viewBox="0 0 32 32" focusable="false">
+              <path d="M29 10H3c-.552 0-1-.447-1-1s.448-1 1-1h26c.552 0 1 .448 1 1s-.448 1-1 1Zm-12 2h11v8H17v-8Zm11 16c0 1.104-.896 2-2 2h-9v-8h11v6ZM4 12h11v8H4v-8Zm11 18h-9c-1.104 0-2-.896-2-2v-6h11v8ZM13 2c1.104 0 2 .896 2 2s-.896 2-2 2-2-.896-2-2 .896-2 2-2Zm6 0c1.104 0 2 .896 2 2s-.896 2-2 2-2-.896-2-2 .896-2 2-2Zm11 4h-7.555c.344-.59.555-1.268.555-2 0-2.209-1.791-4-4-4-1.202 0-2.267.541-3 1.38C15.267.541 14.202 0 13 0c-2.209 0-4 1.791-4 4 0 .732.211 1.41.555 2H2C.896 6 0 6.896 0 8v2c0 1.104.896 2 2 2v16c0 2.209 1.791 4 4 4h20c2.209 0 4-1.791 4-4V12c1.104 0 2-.896 2-2V8c0-1.104-.896-2-2-2Z" />
+            </svg>
+          }
+          @case ('profile') {
+            <svg class="footer-navigation-link__icon-svg--small" viewBox="0 0 20 20" focusable="false">
+              <path d="M10 9.99998c-2.216504 0-4.019045-1.794-4.019045-4s1.802541-4 4.019045-4 4.019045 1.794 4.019045 4-1.802541 4-4.019045 4Zm3.775893.673c1.594556-1.277 2.523961-3.342 2.182342-5.603C15.561354 2.44698 13.368965.34798 10.722423.04198 7.070116-.38102 3.971432 2.44898 3.971432 5.99998c0 1.89.880171 3.574 2.252675 4.673-3.371979 1.261-5.833644 4.222-6.219473 8.218-.056266.591.406929 1.109 1.003757 1.109.511423 0 .94749-.384.992704-.891.402909-4.463 3.836179-7.109 7.998905-7.109s7.595996 2.646 7.998905 7.109c.045214.507.481281.891.992704.891.596828 0 1.059023-.518 1.003757-1.109-.385829-3.996-2.847494-6.957-6.219473-8.218Z" />
+            </svg>
+          }
+        }
+      </span>
+      <span class="footer-navigation-link__label">{{ navigationItem.label }}</span>
+    </a>
+  }
+</footer>

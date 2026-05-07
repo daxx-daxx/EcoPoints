@@ -1,0 +1,250 @@
+.rewards-page {
+  background: var(--color-surface);
+}
+
+.rewards-header {
+  min-height: 192px;
+  padding: 34px 24px 26px;
+  border-radius: 0 0 20px 20px;
+  background: var(--color-primary);
+  color: var(--color-surface);
+  box-shadow: 0 8px 18px var(--color-primary-shadow);
+}
+
+.rewards-header-topline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.rewards-title {
+  margin: 0;
+  font-size: 23px;
+  font-weight: 300;
+}
+
+.rewards-back-button,
+.reward-coupon-back-button {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.rewards-back-button {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.rewards-back-button svg,
+.reward-coupon-back-button svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.rewards-points-card {
+  height: 82px;
+  margin-top: 18px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  display: flex;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.rewards-points-label,
+.rewards-points-value {
+  margin: 0;
+}
+
+.rewards-points-label {
+  font-size: 13px;
+  opacity: 0.78;
+}
+
+.rewards-points-value {
+  margin-top: 8px;
+  font-size: 26px;
+  font-weight: 300;
+}
+
+.rewards-points-icon {
+  width: 24px;
+}
+
+.rewards-points-icon svg {
+  width: 100%;
+  fill: currentColor;
+}
+
+.rewards-park-selection,
+.park-reward-selection {
+  padding: 28px 24px 24px;
+}
+
+.rewards-section-title {
+  margin: 0 0 22px;
+  color: var(--color-heading);
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.rewards-park-list,
+.park-reward-list {
+  display: grid;
+  gap: 14px;
+}
+
+.rewards-park-card,
+.park-reward-card {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  background: var(--color-input-background);
+  color: var(--color-heading);
+  font-family: inherit;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.rewards-park-card {
+  min-height: 94px;
+  padding: 18px 20px;
+  gap: 18px;
+}
+
+.rewards-park-logo {
+  width: 72px;
+  color: #1577bd;
+  font-weight: 800;
+  text-align: center;
+}
+
+.rewards-park-logo--warner {
+  color: #d8891f;
+}
+
+.rewards-park-logo--faunia {
+  color: #164fac;
+}
+
+.rewards-park-logo--aquopolis {
+  color: #4eb6df;
+  font-size: 12px;
+}
+
+.rewards-park-name {
+  flex: 1;
+  font-size: 17px;
+}
+
+.rewards-park-arrow {
+  color: var(--color-navigation-muted);
+  font-size: 30px;
+  line-height: 1;
+}
+
+.park-reward-card {
+  min-height: 94px;
+  padding: 18px;
+  gap: 16px;
+}
+
+.park-reward-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: var(--color-surface);
+  color: var(--color-primary);
+}
+
+.park-reward-icon svg {
+  width: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 1.5;
+}
+
+.park-reward-details {
+  display: grid;
+  gap: 6px;
+}
+
+.park-reward-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.park-reward-description {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.park-reward-cost {
+  width: fit-content;
+  padding: 4px 10px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(46, 204, 113, 0.18);
+  color: var(--color-primary);
+  font-size: 12px;
+}
+
+.park-reward-cost svg {
+  width: 14px;
+  fill: currentColor;
+}
+
+.reward-coupon-page {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  width: var(--app-mobile-width);
+  margin: 0 auto;
+  padding: 24px 18px;
+  background: var(--color-surface);
+}
+
+.reward-coupon-card {
+  min-height: 210px;
+  margin-top: 54px;
+  padding: 30px 14px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: var(--color-input-background);
+}
+
+.reward-coupon-title,
+.reward-coupon-discount,
+.reward-coupon-code {
+  margin: 0;
+}
+
+.reward-coupon-title {
+  color: #111111;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.reward-coupon-discount {
+  color: var(--color-heading);
+  font-size: 17px;
+}
+
+.reward-coupon-code {
+  color: var(--color-primary);
+  font-size: 28px;
+  font-weight: 800;
+}

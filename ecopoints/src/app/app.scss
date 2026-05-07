@@ -1,0 +1,8 @@
+.app-shell {
+  position: relative;
+  width: var(--app-mobile-width);
+  height: var(--app-mobile-height);
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--color-surface);
+}
