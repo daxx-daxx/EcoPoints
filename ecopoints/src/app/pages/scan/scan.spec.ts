@@ -13,7 +13,7 @@ describe('Scan', () => {
 
     fixture = TestBed.createComponent(Scan);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {

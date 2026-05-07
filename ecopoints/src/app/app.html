@@ -1,5 +1,8 @@
 
+<div class="app-shell">
+  <router-outlet></router-outlet>
 
-
-
-<router-outlet></router-outlet>
+  @if (shouldShowFooter()) {
+    <app-footer />
+  }
+</div>
