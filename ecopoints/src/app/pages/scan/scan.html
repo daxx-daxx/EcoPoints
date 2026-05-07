@@ -74,10 +74,10 @@
 
             <label class="scan-code-field">
               <span aria-hidden="true">#</span>
-              <input type="text" placeholder="Introduce el codigo del ticket" />
+              <input #ticketCodeInput type="text" placeholder="Introduce el codigo del ticket" />
             </label>
 
-            <button class="scan-primary-action" type="button" (click)="validateTicketCode()">Validar C&oacute;digo</button>
+            <button class="scan-primary-action" type="button" (click)="validateTicketCode(ticketCodeInput.value)">Validar C&oacute;digo</button>
             <button class="scan-secondary-action" type="button" (click)="showQrScanner()">Escanear QR</button>
           </div>
         }
@@ -85,9 +85,9 @@
         @case ('success') {
           <div class="scan-success-panel">
             <div class="scan-success-symbol" aria-hidden="true">
-              <svg viewBox="0 0 64 64" focusable="false">
-                <path d="M29 42 17 30l4-4 8 8 18-19 4 4-22 23Z" />
-                <path d="M56 30a24 24 0 1 1-7-17l-4 4a18 18 0 1 0 5 13h6Z" />
+              <svg viewBox="0 0 24 24" fill="none" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </div>
 
@@ -101,6 +101,21 @@
             </div>
 
             <button class="scan-primary-action" type="button" (click)="showQrScanner()">Continuar</button>
+          </div>
+        }
+
+        @case ('error') {
+          <div class="scan-error-panel">
+            <div class="scan-error-symbol" aria-hidden="true">
+              <svg viewBox="0 0 32 32" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16,30 C8.268,30 2,23.73 2,16 C2,8.27 8.268,2 16,2 C23.732,2 30,8.27 30,16 C30,23.73 23.732,30 16,30 Z M16,0 C7.163,0 0,7.16 0,16 C0,24.84 7.163,32 16,32 C24.837,32 32,24.84 32,16 C32,7.16 24.837,0 16,0 Z M21.717,10.28 C21.323,9.89 20.686,9.89 20.292,10.28 L15.994,14.58 L11.758,10.34 C11.367,9.95 10.733,9.95 10.344,10.34 C9.953,10.73 9.953,11.37 10.344,11.76 L14.58,15.99 L10.314,20.26 C9.921,20.65 9.921,21.29 10.314,21.69 C10.708,22.08 11.346,22.08 11.74,21.69 L16.006,17.42 L20.242,21.66 C20.633,22.05 21.267,22.05 21.657,21.66 C22.048,21.27 22.048,20.63 21.657,20.24 L17.42,16.01 L21.717,11.71 C22.11,11.31 22.11,10.68 21.717,10.28 Z" />
+              </svg>
+            </div>
+
+            <h1 class="scan-error-title">C&oacute;digo no v&aacute;lido</h1>
+            <p class="scan-error-description">No hemos podido validar este reciclaje</p>
+
+            <button class="scan-primary-action" type="button" (click)="showQrScanner()">Volver a intentar</button>
           </div>
         }
       }

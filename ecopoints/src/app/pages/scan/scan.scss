@@ -70,7 +70,8 @@
 
 .scan-qr-panel,
 .scan-code-panel,
-.scan-success-panel {
+.scan-success-panel,
+.scan-error-panel {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -89,6 +90,10 @@
 
 .scan-success-panel {
   padding-bottom: 34px;
+}
+
+.scan-error-panel {
+  padding-bottom: 72px;
 }
 
 .scan-qr-symbol,
@@ -116,7 +121,8 @@
 
 .scan-qr-title,
 .scan-code-title,
-.scan-success-title {
+.scan-success-title,
+.scan-error-title {
   margin: 34px 0 14px;
   color: var(--color-heading);
   font-size: 20px;
@@ -125,7 +131,8 @@
 
 .scan-qr-description,
 .scan-code-description,
-.scan-success-description {
+.scan-success-description,
+.scan-error-description {
   margin: 0;
   color: var(--color-text-muted);
   font-size: 15px;
@@ -204,9 +211,23 @@
   color: var(--color-primary);
 }
 
-.scan-success-symbol svg {
+.scan-error-symbol {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(231, 76, 60, 0.1);
+  color: #d94336;
+}
+
+.scan-success-symbol svg,
+.scan-error-symbol svg {
   width: 78px;
   height: 78px;
+}
+
+.scan-error-symbol svg {
   fill: currentColor;
 }
 
