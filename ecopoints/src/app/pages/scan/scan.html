@@ -10,25 +10,59 @@
 
       <h1 class="scan-help-title">&iquest;C&oacute;mo funciona?</h1>
 
-      <p class="scan-help-text">
-        Escanea el c&oacute;digo QR del punto de reciclaje antes de depositar tus residuos. La aplicaci&oacute;n validar&aacute;
-        el punto y preparar&aacute; tu recompensa de EcoPoints.
+      <p class="scan-help-intro">
+        EcoPoints te guia paso a paso para reciclar en Faunia de forma sencilla. Solo necesitas escanear la papelera y
+        escribir el codigo de tu ticket.
       </p>
 
-      <p class="scan-help-text">
-        Si tienes un ticket con c&oacute;digo, puedes introducirlo manualmente desde esta misma pantalla. Cuando el c&oacute;digo
-        sea correcto, se sumar&aacute;n los puntos a tu cuenta.
-      </p>
+      <div class="scan-help-steps">
+        <article class="scan-help-step">
+          <span class="scan-help-step__number">1</span>
+          <div>
+            <h2 class="scan-help-step__title">Escanea la papelera</h2>
+            <p class="scan-help-step__text">
+              Pulsa el boton de escaneo cuando estes junto a una papelera EcoPoints. La app comprobara que la papelera
+              esta activa y pertenece al parque correcto.
+            </p>
+          </div>
+        </article>
 
-      <p class="scan-help-text">
-        Usa tus EcoPoints en la secci&oacute;n de recompensas para canjear descuentos disponibles en parques y experiencias.
-      </p>
+        <article class="scan-help-step">
+          <span class="scan-help-step__number">2</span>
+          <div>
+            <h2 class="scan-help-step__title">Introduce tu ticket</h2>
+            <p class="scan-help-step__text">
+              Escribe el codigo tal como aparece en tu ticket. Si el ticket existe, es de Faunia y no se ha usado antes,
+              el reciclaje se valida.
+            </p>
+          </div>
+        </article>
+
+        <article class="scan-help-step">
+          <span class="scan-help-step__number">3</span>
+          <div>
+            <h2 class="scan-help-step__title">Gana EcoPoints</h2>
+            <p class="scan-help-step__text">
+              Los puntos del ticket se suman a tu cuenta, el ticket queda marcado como usado y se guarda el reciclaje en
+              tu historial.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <div class="scan-help-note">
+        <h2 class="scan-help-note__title">Luego puedes canjearlos</h2>
+        <p class="scan-help-note__text">
+          Tus EcoPoints sirven para conseguir descuentos. El CO<sub>2</sub> ahorrado se calcula con tu historial de
+          reciclajes, as&iacute; que no baja aunque gastes puntos en recompensas.
+        </p>
+      </div>
     </section>
   } @else {
     <section class="scan-points-summary" aria-label="Resumen de puntos">
       <div>
         <p class="scan-points-label">Tus EcoPoints</p>
-        <p class="scan-points-value">1,250</p>
+        <p class="scan-points-value">{{ totalPoints() }}</p>
       </div>
       <span class="scan-points-icon" aria-hidden="true">
         <svg viewBox="0 0 600 511" focusable="false">
@@ -71,13 +105,14 @@
 
             <h1 class="scan-code-title">Introduce tu c&oacute;digo</h1>
             <p class="scan-code-description">Introduce el c&oacute;digo de tu ticket</p>
+            <p class="scan-bin-code">Papelera: FAUNIA-BIN-001</p>
 
             <label class="scan-code-field">
               <span aria-hidden="true">#</span>
               <input #ticketCodeInput type="text" placeholder="Introduce el codigo del ticket" />
             </label>
 
-            <button class="scan-primary-action" type="button" (click)="validateTicketCode(ticketCodeInput.value)">Validar C&oacute;digo</button>
+            <button class="scan-primary-action" type="button" (click)="validateTicketCode(ticketCodeInput.value); ticketCodeInput.value = ''">Validar C&oacute;digo</button>
             <button class="scan-secondary-action" type="button" (click)="showQrScanner()">Escanear QR</button>
           </div>
         }
@@ -92,7 +127,7 @@
             </div>
 
             <h1 class="scan-success-title">&iexcl;Reciclaje Validado!</h1>
-            <p class="scan-success-description">Gracias por ayudar al medio ambiente</p>
+            <p class="scan-success-description">{{ message() }}</p>
 
             <div class="scan-earned-points">
               <p class="scan-earned-points__label">Puntos conseguidos</p>
@@ -113,7 +148,7 @@
             </div>
 
             <h1 class="scan-error-title">C&oacute;digo no v&aacute;lido</h1>
-            <p class="scan-error-description">No hemos podido validar este reciclaje</p>
+            <p class="scan-error-description">{{ message() }}</p>
 
             <button class="scan-primary-action" type="button" (click)="showQrScanner()">Volver a intentar</button>
           </div>

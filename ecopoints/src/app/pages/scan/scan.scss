@@ -148,6 +148,12 @@
   font-weight: 700;
 }
 
+.scan-bin-code {
+  margin: -20px 0 18px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
 .scan-primary-action {
   width: 100%;
   height: 54px;
@@ -289,12 +295,75 @@
 
 .scan-help-title {
   margin: 28px 0 24px;
-  font-size: 16px;
+  color: var(--color-heading);
+  font-size: 22px;
   font-weight: 700;
 }
 
-.scan-help-text {
-  margin: 0 0 24px;
+.scan-help-intro {
+  margin: 0 0 22px;
+  color: var(--color-text-muted);
   font-size: 15px;
   line-height: 1.45;
+}
+
+.scan-help-steps {
+  display: grid;
+  gap: 14px;
+}
+
+.scan-help-step {
+  padding: 16px;
+  border-radius: 14px;
+  display: flex;
+  gap: 14px;
+  background: var(--color-input-background);
+}
+
+.scan-help-step__number {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: 0 0 32px;
+  background: var(--color-primary);
+  color: var(--color-surface);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.scan-help-step__title {
+  margin: 0 0 6px;
+  color: var(--color-heading);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.scan-help-step__text {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.scan-help-note {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(46, 204, 113, 0.12);
+}
+
+.scan-help-note__title {
+  margin: 0 0 8px;
+  color: var(--color-heading);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.scan-help-note__text {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 1.4;
 }
