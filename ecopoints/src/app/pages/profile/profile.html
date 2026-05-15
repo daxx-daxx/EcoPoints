@@ -45,15 +45,7 @@
             <path d="M12 3s6 6.2 6 11a6 6 0 0 1-12 0c0-4.8 6-11 6-11Z" />
           </svg>
         </span>
-        <p class="profile-impact-value">
-          @if (savedCo2Kg === null && loading) {
-            <span>Cargando</span>
-          } @else if (savedCo2Kg === null) {
-            <span>-</span>
-          } @else {
-            <span>{{ savedCo2Kg }}kg</span>
-          }
-        </p>
+        <p class="profile-impact-value">{{ savedCo2Kg }}kg</p>
         <p class="profile-impact-label">CO<sub>2</sub> Ahorrado</p>
       </article>
     </div>

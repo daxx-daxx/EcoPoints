@@ -9,7 +9,7 @@
     <h1 class="register-title">Crear Cuenta</h1>
     <p class="register-subtitle">&Uacute;nete hoy a EcoPoints</p>
 
-    <form class="register-form" (submit)="onRegister(nameInput.value, emailInput.value, passwordInput.value, confirmPasswordInput.value); $event.preventDefault()">
+    <form class="register-form" novalidate (submit)="onRegister(nameInput.value, emailInput.value, passwordInput.value, confirmPasswordInput.value); $event.preventDefault()">
       <label class="register-field-label">Nombre</label>
       <div class="register-field">
         <span>&#128100;</span>
@@ -38,12 +38,18 @@
         <input #confirmPasswordInput type="password" placeholder="Confirma tu contrase&ntilde;a" />
       </div>
 
-      @if (errorMessage) {
-        <p class="register-error">{{ errorMessage }}</p>
+      @if (errorMessage()) {
+        <p class="register-error">
+          <span class="register-message__icon" aria-hidden="true">!</span>
+          <span>{{ errorMessage() }}</span>
+        </p>
       }
 
-      @if (successMessage) {
-        <p class="register-success">{{ successMessage }}</p>
+      @if (successMessage()) {
+        <p class="register-success">
+          <span class="register-message__icon" aria-hidden="true">✓</span>
+          <span>{{ successMessage() }}</span>
+        </p>
       }
 
       <button class="register-submit-button" type="submit">Crear Cuenta</button>

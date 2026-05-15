@@ -100,17 +100,44 @@
 
 .register-error,
 .register-success {
+  min-height: 44px;
   margin: 14px 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
   font-size: 13px;
-  text-align: center;
+  font-weight: 700;
+  line-height: 1.35;
 }
 
 .register-error {
+  border: 1px solid rgba(180, 35, 24, 0.18);
+  background: #fff3f0;
   color: #b42318;
 }
 
 .register-success {
+  border: 1px solid rgba(21, 128, 61, 0.18);
+  background: #effaf3;
   color: var(--color-primary);
+}
+
+.register-message__icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  flex: 0 0 20px;
+  place-items: center;
+  background: #b42318;
+  color: #ffffff;
+  font-size: 12px;
+}
+
+.register-success .register-message__icon {
+  background: var(--color-primary);
 }
 
 .register-submit-button {

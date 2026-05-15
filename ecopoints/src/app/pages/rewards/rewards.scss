@@ -93,7 +93,6 @@
   font-weight: 400;
 }
 
-.rewards-error,
 .rewards-empty {
   margin: 0 0 16px;
   color: var(--color-text-muted);
@@ -101,7 +100,40 @@
 }
 
 .rewards-error {
+  margin: 0 0 16px;
+  padding: 12px;
+  border: 1px solid rgba(180, 35, 24, 0.16);
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fff3f0;
   color: #b42318;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.rewards-error__icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  flex: 0 0 22px;
+  place-items: center;
+  background: #b42318;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.rewards-error strong,
+.rewards-error span span {
+  display: block;
+}
+
+.rewards-error strong {
+  margin-bottom: 2px;
+  color: #7a271a;
 }
 
 .rewards-park-list,

@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
+import { SessionService, SessionUser } from '../../services/session.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,104 +10,96 @@ import { ApiService } from '../../services/api.service';
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })
-export class Profile implements OnInit, OnDestroy {
+export class Profile implements OnInit {
   userName = '';
   userEmail = '';
-  totalEcoPoints: number | null = null;
-  recycledTimes: number | null = null;
-  savedCo2Kg: number | null = null;
+  totalEcoPoints = 0;
+  recycledTimes = 0;
+  savedCo2Kg = 0;
   errorMessage = '';
   loading = true;
-  private routeSubscription?: Subscription;
 
   constructor(
     private apiService: ApiService,
+    private sessionService: SessionService,
     private router: Router,
   ) {}
 
   ngOnInit() {
     this.loadProfile();
-
-    this.routeSubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd && event.urlAfterRedirects === '/profile') {
-        this.loadProfile();
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.routeSubscription?.unsubscribe();
   }
 
   private loadProfile() {
     this.errorMessage = '';
     this.loading = true;
 
-    const currentUserText = localStorage.getItem('currentUser');
+    const sessionUser = this.sessionService.getUser();
 
-    if (!currentUserText) {
-      localStorage.removeItem('currentUser');
+    if (!sessionUser?.id) {
       this.router.navigate(['/login']);
       return;
     }
 
-    let currentUser;
+    this.setInitialProfileData(sessionUser);
 
-    try {
-      currentUser = JSON.parse(currentUserText);
-    } catch {
-      localStorage.removeItem('currentUser');
-      this.router.navigate(['/login']);
-      return;
-    }
-
-    if (!currentUser.id) {
-      localStorage.removeItem('currentUser');
-      this.router.navigate(['/login']);
-      return;
-    }
-
-    this.userName = currentUser.name ?? '';
-    this.userEmail = currentUser.email ?? '';
-    this.totalEcoPoints = currentUser.points === undefined ? null : Number(currentUser.points);
-    this.recycledTimes = currentUser.recycled_count === undefined ? null : Number(currentUser.recycled_count);
-    this.savedCo2Kg = currentUser.co2_saved === undefined ? null : Number(currentUser.co2_saved);
-
-    this.apiService.getProfile(currentUser.id).subscribe({
+    this.apiService.getProfile(sessionUser.id).subscribe({
       next: (response: any) => {
         if (response.success) {
-          const user = response.data;
-
-          this.userName = user.name;
-          this.userEmail = user.email;
-          this.totalEcoPoints = Number(user.points);
-          this.recycledTimes = Number(user.recycled_count);
-          this.savedCo2Kg = Number(user.co2_saved);
-
-          localStorage.setItem('currentUser', JSON.stringify({
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            points: user.points,
-            recycled_count: user.recycled_count,
-            co2_saved: user.co2_saved,
-          }));
+          this.setProfileData(response.data);
+          this.sessionService.updateUser({
+            id: Number(response.data.id),
+            name: response.data.name,
+            email: response.data.email,
+            points: Number(response.data.points ?? 0),
+            recycled_count: Number(response.data.recycled_count ?? 0),
+            co2_saved: this.savedCo2Kg,
+          });
         } else {
           this.errorMessage = response.message;
         }
 
         this.loading = false;
       },
-      error: () => {
-        this.errorMessage = 'No se pudo conectar con el servidor.';
+      error: (error: HttpErrorResponse) => {
+        this.errorMessage = error.error?.message || 'No se pudo conectar con el servidor. Revisa que XAMPP este iniciado.';
         this.loading = false;
       },
     });
   }
 
+  private setInitialProfileData(user: SessionUser) {
+    const recycledCount = Number(user.recycled_count ?? 0);
+
+    this.userName = user.name ?? '';
+    this.userEmail = user.email ?? '';
+    this.totalEcoPoints = Number(user.points ?? 0);
+    this.recycledTimes = recycledCount;
+    this.savedCo2Kg = this.getCo2Saved(user.co2_saved, recycledCount);
+  }
+
+  private setProfileData(user: any) {
+    const recycledCount = Number(user.recycled_count ?? 0);
+
+    this.userName = user.name ?? '';
+    this.userEmail = user.email ?? '';
+    this.totalEcoPoints = Number(user.points ?? 0);
+    this.recycledTimes = recycledCount;
+    this.savedCo2Kg = this.getCo2Saved(user.co2_saved, recycledCount);
+  }
+
+  private getCo2Saved(co2Saved: unknown, recycledCount: number): number {
+    if (co2Saved !== undefined && co2Saved !== null && co2Saved !== '') {
+      return Number(co2Saved);
+    }
+
+    return Number((recycledCount * 0.1).toFixed(2));
+  }
+
   logout() {
-    localStorage.removeItem('currentUser');
-    this.router.navigate(['/login']);
+    this.sessionService.clearUser();
+    this.router.navigate(['/login'], {
+      state: { toastMessage: 'Sesion cerrada correctamente.' },
+    });
   }
 
 }

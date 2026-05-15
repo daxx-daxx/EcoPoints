@@ -1,4 +1,11 @@
 <div class="app-page login-page">
+  @if (successMessage()) {
+    <div class="login-toast" role="status">
+      <span class="login-toast__icon" aria-hidden="true">&#10003;</span>
+      <span>{{ successMessage() }}</span>
+    </div>
+  }
+
   <div class="login-panel">
     <div class="login-logo">
       <svg viewBox="0 0 600 511" aria-hidden="true" focusable="false">
@@ -9,7 +16,7 @@
     <h1 class="login-title">EcoPoints</h1>
     <p class="login-subtitle">Recicla y recibe recompensas</p>
 
-    <form class="login-form" (submit)="onLogin(emailInput.value, passwordInput.value); $event.preventDefault()">
+    <form class="login-form" novalidate (submit)="onLogin(emailInput.value, passwordInput.value); $event.preventDefault()">
       <label class="login-field-label">Email</label>
       <div class="login-field">
         <span>&#9993;</span>
@@ -26,8 +33,11 @@
         <input #passwordInput type="password" placeholder="Introduce tu contrase&ntilde;a" />
       </div>
 
-      @if (errorMessage) {
-        <p class="login-error">{{ errorMessage }}</p>
+      @if (errorMessage()) {
+        <p class="login-error">
+          <span class="login-error__icon" aria-hidden="true">!</span>
+          <span>{{ errorMessage() }}</span>
+        </p>
       }
 
       <button class="login-submit-button" type="submit">Iniciar Sesi&oacute;n</button>

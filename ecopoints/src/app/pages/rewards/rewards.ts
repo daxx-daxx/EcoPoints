@@ -1,6 +1,8 @@
 import { Component, OnInit, computed, signal } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
+import { SessionService } from '../../services/session.service';
 
 type Park = {
   id: string;
@@ -29,19 +31,14 @@ type Redemption = {
 })
 export class Rewards implements OnInit {
   protected readonly availablePoints = signal(0);
-  protected readonly selectedPark = signal<Park | null>({
-    id: 'faunia',
-    name: 'Faunia',
-    logoText: 'FAUNIA',
-    logoClass: 'rewards-park-logo--faunia',
-  });
+  protected readonly selectedPark = signal<Park | null>(null);
   protected readonly selectedReward = signal<Reward | null>(null);
   protected readonly pendingReward = signal<Reward | null>(null);
   protected readonly redemption = signal<Redemption | null>(null);
   protected readonly parkRewards = signal<Reward[]>([]);
   protected readonly errorMessage = signal('');
   protected readonly successMessage = signal('');
-  private currentUser: any = null;
+  private userId: number | null = null;
 
   protected readonly parks: Park[] = [
     { id: 'zoo', name: 'Zoo', logoText: 'ZOO', logoClass: 'rewards-park-logo--zoo' },
@@ -54,33 +51,19 @@ export class Rewards implements OnInit {
 
   constructor(
     private apiService: ApiService,
+    private sessionService: SessionService,
     private router: Router,
   ) {}
 
   ngOnInit(): void {
-    const currentUserText = localStorage.getItem('currentUser');
+    this.userId = this.sessionService.getUserId();
 
-    if (!currentUserText) {
+    if (!this.userId) {
       this.router.navigate(['/login']);
       return;
     }
 
-    try {
-      this.currentUser = JSON.parse(currentUserText);
-    } catch {
-      localStorage.removeItem('currentUser');
-      this.router.navigate(['/login']);
-      return;
-    }
-
-    if (!this.currentUser.id) {
-      localStorage.removeItem('currentUser');
-      this.router.navigate(['/login']);
-      return;
-    }
-
-    this.availablePoints.set(Number(this.currentUser.points ?? 0));
-    this.loadRewards('faunia');
+    this.loadCurrentPoints(this.userId);
   }
 
   protected selectPark(park: Park): void {
@@ -92,7 +75,7 @@ export class Rewards implements OnInit {
     this.errorMessage.set('');
     this.successMessage.set('');
 
-    if (!this.currentUser?.id) {
+    if (!this.userId) {
       this.router.navigate(['/login']);
       return;
     }
@@ -111,16 +94,20 @@ export class Rewards implements OnInit {
       return;
     }
 
+    if (!this.userId) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
     this.pendingReward.set(null);
-    this.apiService.redeem(this.currentUser.id, reward.id).subscribe({
+    this.apiService.redeem(this.userId, reward.id).subscribe({
       next: (response: any) => {
         if (response.success) {
           const data = response.data;
           const remainingPoints = Number(data.remaining_points ?? data.points_remaining ?? this.availablePoints());
 
           this.availablePoints.set(remainingPoints);
-          this.currentUser.points = remainingPoints;
-          localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+          this.sessionService.updateUser({ points: remainingPoints });
 
           this.selectedReward.set(reward);
           this.redemption.set({
@@ -129,11 +116,13 @@ export class Rewards implements OnInit {
           });
           this.successMessage.set(response.message);
         } else {
-          this.errorMessage.set(this.getFriendlyErrorMessage(response.message));
+          const message = this.getFriendlyErrorMessage(response.message);
+          this.errorMessage.set(message);
         }
       },
-      error: () => {
-        this.errorMessage.set('No se pudo conectar con el servidor.');
+      error: (error: HttpErrorResponse) => {
+        const message = error.error?.message || 'No se pudo conectar con el servidor. Revisa que XAMPP este iniciado.';
+        this.errorMessage.set(message);
       },
     });
   }
@@ -162,8 +151,25 @@ export class Rewards implements OnInit {
           this.errorMessage.set(response.message);
         }
       },
-      error: () => {
-        this.errorMessage.set('No se pudo conectar con el servidor.');
+      error: (error: HttpErrorResponse) => {
+        const message = error.error?.message || 'No se pudo conectar con el servidor. Revisa que XAMPP este iniciado.';
+        this.errorMessage.set(message);
+      },
+    });
+  }
+
+  private loadCurrentPoints(userId: number): void {
+    this.apiService.getProfile(userId).subscribe({
+      next: (response: any) => {
+        if (response.success) {
+          this.availablePoints.set(Number(response.data.points ?? 0));
+        } else {
+          this.errorMessage.set(response.message);
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        const message = error.error?.message || 'No se pudo conectar con el servidor. Revisa que XAMPP este iniciado.';
+        this.errorMessage.set(message);
       },
     });
   }

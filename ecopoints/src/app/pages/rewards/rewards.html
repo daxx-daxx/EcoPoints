@@ -67,7 +67,13 @@
         <h2 class="rewards-section-title">Recompensas Disponibles</h2>
 
         @if (errorMessage()) {
-          <p class="rewards-error">{{ errorMessage() }}</p>
+          <article class="rewards-error" role="alert">
+            <span class="rewards-error__icon" aria-hidden="true">!</span>
+            <span>
+              <strong>No se ha podido canjear</strong>
+              <span>{{ errorMessage() }}</span>
+            </span>
+          </article>
         }
 
         <div class="park-reward-list">
