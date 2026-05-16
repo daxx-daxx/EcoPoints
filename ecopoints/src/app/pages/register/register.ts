@@ -12,6 +12,8 @@ import { ApiService } from '../../services/api.service';
 export class Register {
   protected readonly errorMessage = signal('');
   protected readonly successMessage = signal('');
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(
     private apiService: ApiService,
@@ -53,6 +55,14 @@ export class Register {
         this.errorMessage.set(message);
       },
     });
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 
   private isValidEmail(email: string): boolean {
