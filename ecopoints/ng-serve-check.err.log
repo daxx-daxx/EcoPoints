@@ -1,0 +1,7 @@
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@supabase/supabase-js' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/services/supabase.ts:2:45:
+[37m      2 │ import { createClient, SupabaseClient } from [32m'@supabase/supabase-js'[37m;
+        ╵                                              [32m~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
