@@ -98,6 +98,24 @@
   color: var(--color-input-placeholder);
 }
 
+.register-password-toggle {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+  background: transparent;
+  color: var(--color-input-icon);
+  cursor: pointer;
+}
+
+.register-password-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
 .register-error,
 .register-success {
   min-height: 44px;

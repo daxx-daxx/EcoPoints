@@ -13,6 +13,7 @@ import { SessionService } from '../../services/session.service';
 export class Login implements OnInit {
   protected readonly errorMessage = signal('');
   protected readonly successMessage = signal('');
+  protected showPassword = false;
 
   constructor(
     private apiService: ApiService,
@@ -62,6 +63,10 @@ export class Login implements OnInit {
         this.errorMessage.set(error.error?.message || 'No se pudo conectar con el servidor. Revisa que XAMPP este iniciado.');
       },
     });
+  }
+
+  protected togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   private isValidEmail(email: string): boolean {

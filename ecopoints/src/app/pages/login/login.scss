@@ -132,6 +132,24 @@
   color: var(--color-input-placeholder);
 }
 
+.login-password-toggle {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+  background: transparent;
+  color: var(--color-input-icon);
+  cursor: pointer;
+}
+
+.login-password-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
 .login-error {
   min-height: 44px;
   margin: 14px 0 0;
