@@ -95,7 +95,21 @@
               Escanea el c&oacute;digo QR del punto de reciclaje para empezar a ganar EcoPoints.
             </p>
 
-            <button class="scan-primary-action" type="button" (click)="validateRecyclingBin()">Escanea el QR</button>
+            <div class="scan-camera-frame" [class.scan-camera-frame--active]="isScanningBin()">
+              <div [id]="scannerElementId"></div>
+              @if (isScanningBin()) {
+                <span class="scan-camera-frame__corners" aria-hidden="true"></span>
+                <span class="scan-camera-frame__line" aria-hidden="true"></span>
+              }
+            </div>
+
+            @if (message()) {
+              <p class="scan-inline-message">{{ message() }}</p>
+            }
+
+            <button class="scan-primary-action" type="button" (click)="startBinScanner()" [disabled]="isScanningBin()">
+              {{ isScanningBin() ? 'Escaneando...' : 'Escanear papelera' }}
+            </button>
           </div>
         }
 
@@ -105,7 +119,17 @@
 
             <h1 class="scan-code-title">Introduce tu c&oacute;digo</h1>
             <p class="scan-code-description">Introduce el c&oacute;digo de tu ticket</p>
-            <p class="scan-bin-code">Papelera: FAUNIA-BIN-001</p>
+            <div class="scan-bin-detected" aria-live="polite">
+              <span class="scan-bin-detected__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M9.2 16.6 4.9 12.3 3.5 13.7 9.2 19.4 20.7 7.9 19.3 6.5z" />
+                </svg>
+              </span>
+              <div>
+                <p class="scan-bin-detected__label">Papelera detectada</p>
+                <p class="scan-bin-detected__code">{{ binCode() }}</p>
+              </div>
+            </div>
 
             <label class="scan-code-field">
               <span aria-hidden="true">#</span>
@@ -113,7 +137,7 @@
             </label>
 
             <button class="scan-primary-action" type="button" (click)="validateTicketCode(ticketCodeInput.value); ticketCodeInput.value = ''">Validar C&oacute;digo</button>
-            <button class="scan-secondary-action" type="button" (click)="showQrScanner()">Escanear QR</button>
+            <button class="scan-secondary-action" type="button" (click)="showQrScanner()">Escanear otra papelera</button>
           </div>
         }
 

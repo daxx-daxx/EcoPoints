@@ -148,10 +148,114 @@
   font-weight: 700;
 }
 
-.scan-bin-code {
-  margin: -20px 0 18px;
+.scan-camera-frame {
+  position: relative;
+  width: 100%;
+  max-width: 270px;
+  height: 0;
+  margin-top: 20px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #102019;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.scan-camera-frame--active {
+  height: 270px;
+  box-shadow:
+    0 14px 28px rgba(20, 84, 48, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.scan-camera-frame video {
+  border-radius: 14px;
+}
+
+.scan-camera-frame__corners {
+  position: absolute;
+  inset: 22px;
+  border: 2px solid rgba(255, 255, 255, 0.86);
+  border-radius: 16px;
+  box-shadow: 0 0 0 999px rgba(6, 20, 13, 0.22);
+  pointer-events: none;
+}
+
+.scan-camera-frame__line {
+  position: absolute;
+  left: 32px;
+  right: 32px;
+  top: 34px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  box-shadow: 0 0 12px var(--color-primary);
+  animation: scan-line 1.7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes scan-line {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(200px);
+  }
+}
+
+.scan-inline-message {
+  margin: 14px 0 0;
   color: var(--color-text-muted);
   font-size: 13px;
+  line-height: 1.35;
+}
+
+.scan-bin-detected {
+  width: 100%;
+  margin: -18px 0 18px;
+  padding: 12px 14px;
+  border: 1px solid rgba(46, 204, 113, 0.26);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(46, 204, 113, 0.1);
+  text-align: left;
+}
+
+.scan-bin-detected__icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.scan-bin-detected__icon svg {
+  width: 19px;
+  height: 19px;
+  fill: currentColor;
+}
+
+.scan-bin-detected__label,
+.scan-bin-detected__code {
+  margin: 0;
+}
+
+.scan-bin-detected__label {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.scan-bin-detected__code {
+  margin-top: 2px;
+  color: var(--color-heading);
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .scan-primary-action {
@@ -164,6 +268,11 @@
   color: var(--color-surface);
   font-size: 17px;
   box-shadow: 0 8px 15px var(--color-primary-shadow);
+}
+
+.scan-primary-action:disabled {
+  cursor: default;
+  opacity: 0.72;
 }
 
 .scan-secondary-action {
