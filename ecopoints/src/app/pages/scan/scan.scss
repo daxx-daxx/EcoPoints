@@ -154,6 +154,42 @@
   font-size: 13px;
 }
 
+.scan-bin-detected {
+  max-width: 100%;
+  margin: 16px 0 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(46, 204, 113, 0.12);
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.scan-camera-panel {
+  width: 100%;
+  margin-top: 18px;
+}
+
+.scan-camera-panel > div {
+  width: 100%;
+  min-height: 240px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--color-input-background);
+}
+
+.scan-camera-panel video {
+  width: 100%;
+  border-radius: 14px;
+}
+
+.scan-camera-status {
+  margin: 10px 0 0;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
 .scan-primary-action {
   width: 100%;
   height: 54px;

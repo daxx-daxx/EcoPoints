@@ -95,7 +95,30 @@
               Escanea el c&oacute;digo QR del punto de reciclaje para empezar a ganar EcoPoints.
             </p>
 
-            <button class="scan-primary-action" type="button" (click)="validateRecyclingBin()">Escanea el QR</button>
+            @if (binCode()) {
+              <p class="scan-bin-detected">Papelera detectada: {{ binCode() }}</p>
+            }
+
+            @if (scannerOpen()) {
+              <div class="scan-camera-panel" aria-label="Camara para escanear QR">
+                <div id="ecopoints-bin-qr-reader"></div>
+                <p class="scan-camera-status">
+                  @if (scannerStarting()) {
+                    Abriendo camara...
+                  } @else {
+                    Apunta al QR de la papelera.
+                  }
+                </p>
+              </div>
+            }
+
+            <button class="scan-primary-action" type="button" (click)="openBinScanner()">Escanear papelera</button>
+
+            @if (scannerOpen()) {
+              <button class="scan-secondary-action" type="button" (click)="cancelBinScanner()">Cancelar escaneo</button>
+            } @else {
+              <button class="scan-secondary-action" type="button" (click)="validateRecyclingBin()">Continuar</button>
+            }
           </div>
         }
 
@@ -105,7 +128,7 @@
 
             <h1 class="scan-code-title">Introduce tu c&oacute;digo</h1>
             <p class="scan-code-description">Introduce el c&oacute;digo de tu ticket</p>
-            <p class="scan-bin-code">Papelera: FAUNIA-BIN-001</p>
+            <p class="scan-bin-code">Papelera: {{ binCode() }}</p>
 
             <label class="scan-code-field">
               <span aria-hidden="true">#</span>
@@ -113,7 +136,7 @@
             </label>
 
             <button class="scan-primary-action" type="button" (click)="validateTicketCode(ticketCodeInput.value); ticketCodeInput.value = ''">Validar C&oacute;digo</button>
-            <button class="scan-secondary-action" type="button" (click)="showQrScanner()">Escanear QR</button>
+            <button class="scan-secondary-action" type="button" (click)="showQrScanner()">Escanear otra papelera</button>
           </div>
         }
 
